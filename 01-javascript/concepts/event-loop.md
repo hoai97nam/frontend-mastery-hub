@@ -4,6 +4,14 @@ Event Loop: Hiểu sâu về Microtasks (Promises, queueMicrotask) vs Macrotasks
 🏎️ Bản chất của Event Loop: Micro vs. Macro
 JavaScript là đơn luồng (Single-threaded), nhưng trình duyệt thì không. Event Loop giúp JS "có vẻ" như chạy đa nhiệm bằng cách quản lý các hàng đợi (queues).
 
+## 📑 Mục Lục
+- [Phân loại Task](#1-phân-loại-task)
+- [Luồng thực thi chi tiết (The Cycle)](#-luồng-thực-thi-chi-tiết-the-cycle)
+- [Lưu ý cho Senior](#-lưu-ý-cho-senior)
+- [Cách trình duyệt Render giữa các Task](#-cách-trình-duyệt-render-giữa-các-task)
+- [Code thí nghiệm thực tế](#-code-thí-nghiệm-thực-tế)
+- [Dấu hiệu của một Senior khi trả lời phỏng vấn](#-dấu-hiệu-của-một-senior-khi-trả-lời-phỏng-vấn)
+
 # Phân loại Task trong JavaScript Event Loop
 
 ## 1. Phân loại Task
