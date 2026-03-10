@@ -10,6 +10,7 @@
   - [3. Macrotask Queue (Task Queue)](#3-macrotask-queue-task-queue)
   - [Thứ tự thực thi tóm tắt](#thứ-tự-thực-thi-tóm-tắt)
 - [Tại sao cập nhật UI mỗi 16.6ms để đạt 60fps?](#tại-sao-cập-nhật-ui-mỗi-166ms-để-đạt-60fps)
+- [Ví dụ phức tạp: Event Loop + process.nextTick + Promise lồng nhau](#ví-dụ-phức-tạp-event-loop--processnexttick--promise-lồng-nhau)
 
 # `queueMicrotask` trong JavaScript
 
@@ -231,3 +232,143 @@ Event Loop phải đủ "nhường chỗ" cho bước Render trong cửa sổ đ
 ## 📚 Tài nguyên bổ sung
 
 - [Event Loop Visualizer](https://event-loop-visualizer-ruby.vercel.app/)
+
+---
+
+# Ví dụ phức tạp: Event Loop + process.nextTick + Promise lồng nhau
+
+> ⚠️ Ví dụ này chạy trong **Node.js** (có `process.nextTick`). Thứ tự ưu tiên: `Sync` → `process.nextTick` → `Promise.then` → `setTimeout`
+
+## Code
+
+```javascript
+console.log('Start');
+
+setTimeout(() => {
+  console.log('Timeout 1');
+  Promise.resolve().then(() => {
+    console.log('Promise inside Timeout');
+  });
+  process.nextTick(() => {
+    console.log('Next Tick inside Timeout');
+  });
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('Promise 1');
+  setTimeout(() => {
+    console.log('Timeout inside Promise');
+  }, 0);
+});
+
+console.log('End');
+```
+
+## Output
+
+```
+Start
+End
+Promise 1
+Timeout 1
+Next Tick inside Timeout
+Promise inside Timeout
+Timeout inside Promise
+```
+
+## Giải thích từng bước
+
+### Phase 1 — Synchronous (Call Stack)
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 1 | `console.log('Start')` | `Start` | Sync, chạy ngay |
+| 2 | `setTimeout(Timeout1, 0)` | — | Đưa vào **Macrotask Queue** |
+| 3 | `Promise.resolve().then(Promise1)` | — | Đưa vào **Microtask Queue** |
+| 4 | `console.log('End')` | `End` | Sync, chạy ngay |
+
+> Call stack trống → bắt đầu flush **Microtask Queue**
+
+---
+
+### Phase 2 — Microtask Queue (lần 1)
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 5 | `Promise1` callback chạy | `Promise 1` | Microtask đầu tiên |
+| 5b | `setTimeout(Timeout2, 0)` bên trong | — | Đưa thêm vào **Macrotask Queue** |
+
+> Microtask queue rỗng → Event Loop lấy macrotask đầu tiên
+
+---
+
+### Phase 3 — Macrotask #1: `Timeout 1`
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 6 | `console.log('Timeout 1')` | `Timeout 1` | |
+| 6b | `Promise.resolve().then(PromiseInsideTimeout)` | — | Đưa vào **Microtask Queue** |
+| 6c | `process.nextTick(NextTickInsideTimeout)` | — | Đưa vào **nextTick Queue** (ưu tiên cao hơn Promise!) |
+
+> Macrotask xong → flush **nextTick Queue** trước, rồi mới **Microtask Queue**
+
+---
+
+### Phase 4 — nextTick Queue (sau Macrotask #1)
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 7 | `NextTickInsideTimeout` callback | `Next Tick inside Timeout` | `process.nextTick` chạy trước `Promise.then` |
+
+---
+
+### Phase 5 — Microtask Queue (sau nextTick)
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 8 | `PromiseInsideTimeout` callback | `Promise inside Timeout` | |
+
+> Microtask rỗng → Event Loop lấy macrotask tiếp theo
+
+---
+
+### Phase 6 — Macrotask #2: `Timeout inside Promise`
+
+| Bước | Code chạy | Output | Ghi chú |
+|------|-----------|--------|---------|
+| 9 | `console.log('Timeout inside Promise')` | `Timeout inside Promise` | Macrotask này được tạo trong Phase 2 |
+
+---
+
+## Sơ đồ tổng quan
+
+```
+Call Stack (Sync)
+  ├─ Start
+  ├─ setTimeout(Timeout1) ──────────────────► [Macrotask Queue]
+  ├─ Promise.resolve().then(Promise1) ──────► [Microtask Queue]
+  └─ End
+         │
+         ▼ (Call Stack rỗng)
+  Microtask Queue
+  └─ Promise1 ──► "Promise 1"
+                  └─ setTimeout(Timeout2) ──► [Macrotask Queue]
+         │
+         ▼ (Macrotask #1)
+  Timeout1 ──► "Timeout 1"
+               ├─ Promise.resolve().then() ─► [Microtask Queue]
+               └─ process.nextTick() ───────► [nextTick Queue]
+         │
+         ▼ (nextTick trước Promise!)
+  "Next Tick inside Timeout"
+  "Promise inside Timeout"
+         │
+         ▼ (Macrotask #2)
+  Timeout2 ──► "Timeout inside Promise"
+```
+
+## Điểm mấu chốt
+
+- **`process.nextTick`** không phải microtask thông thường — nó có **hàng đợi riêng** (`nextTick Queue`) và luôn chạy **trước** `Promise.then` sau mỗi lần Call Stack trống.
+- Mỗi macrotask hoàn thành → flush **toàn bộ** nextTick Queue → flush **toàn bộ** Microtask Queue → mới lấy macrotask tiếp.
+- `setTimeout` được tạo ra trong microtask (Phase 2) vẫn chạy **sau** `setTimeout` được đăng ký từ đầu — vì nó được thêm vào macrotask queue **muộn hơn**.
