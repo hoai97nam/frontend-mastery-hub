@@ -1,26 +1,78 @@
-Dưới đây là 5 câu hỏi "hạng nặng" kèm theo gợi ý cách trả lời để bạn đưa vào file interviews/senior-js.md.
+# Câu Hỏi Phỏng Vấn JavaScript - Cấp Độ Senior
 
-Câu 1: Giải thích cơ chế Event Loop và sự khác biệt về ưu tiên giữa Microtask và Macrotask.
-Mục đích: Kiểm tra khả năng dự đoán luồng chạy của code không đồng bộ và tối ưu UI.
+> 5 câu hỏi "hạng nặng" kèm gợi ý trả lời dành cho Senior JavaScript Developer.
 
-Gợi ý trả lời: Senior cần giải thích được rằng Microtasks luôn được thực hiện hết sạch trước khi Event Loop chuyển sang Macrotask tiếp theo hoặc thực hiện Render. Một vòng lặp Microtask vô tận (như Promise đệ quy) sẽ làm treo UI hoàn toàn.
+---
 
-Câu 2: Closures có thể gây ra Memory Leak không? Làm thế nào để phòng tránh?
-Mục đích: Kiểm tra kiến thức về quản lý bộ nhớ.
+## Mục Lục
 
-Gợi ý trả lời: Có, nếu closure giữ tham chiếu đến các object lớn trong khi bản thân closure đó không được giải phóng (ví dụ: gán vào một biến global hoặc listener không được remove). Cách tránh: Gán null cho biến sau khi dùng xong hoặc đảm bảo lifecycle của listener rõ ràng.
+1. [Event Loop — Microtask vs. Macrotask](#1-event-loop--microtask-vs-macrotask)
+2. [Closures và Memory Leak](#2-closures-và-memory-leak)
+3. [Prototypal Inheritance vs. Class-based Inheritance](#3-prototypal-inheritance-vs-class-based-inheritance)
+4. [Deep Clone Object Phức Tạp](#4-deep-clone-object-phức-tạp)
+5. [Map/Set vs. WeakMap/WeakSet](#5-mapset-vs-weakmapweakset)
 
-Câu 3: So sánh Prototypal Inheritance và Class-based Inheritance. Tại sao JS chọn Prototype?
-Mục đích: Kiểm tra sự hiểu biết về bản chất ngôn ngữ.
+---
 
-Gợi ý trả lời: JS là "dynamic". Prototype cho phép các object chia sẻ phương thức trực tiếp mà không cần cấu trúc phân cấp cứng nhắc. Điều này giúp tiết kiệm bộ nhớ và linh hoạt hơn trong việc mở rộng object lúc runtime.
+## 1. Event Loop — Microtask vs. Macrotask
 
-Câu 4: Làm thế nào để thực hiện "Deep Clone" một object phức tạp chứa các hàm và kiểu dữ liệu đặc biệt (Date, RegExp)?
-Mục đích: Kiểm tra kinh nghiệm thực tế với dữ liệu.
+**🎯 Mục đích:** Kiểm tra khả năng dự đoán luồng chạy của code không đồng bộ và tối ưu UI.
 
-Gợi ý trả lời: Đừng chỉ nói JSON.parse(JSON.stringify()) vì nó mất hàm và lỗi với Date. Senior nên đề cập đến structuredClone() (API mới của browser) hoặc các thư viện như lodash (cloneDeep), hoặc viết hàm đệ quy xử lý từng trường hợp đặc biệt.
+**💡 Gợi ý trả lời:**
 
-Câu 5: Sự khác biệt giữa Map/Set và WeakMap/WeakSet là gì? Khi nào thì dùng "Weak"?
-Mục đích: Kiểm tra kỹ năng tối ưu bộ nhớ cao cấp.
+Senior cần giải thích được rằng **Microtasks luôn được thực hiện hết sạch** trước khi Event Loop chuyển sang Macrotask tiếp theo hoặc thực hiện Render. Một vòng lặp Microtask vô tận (như Promise đệ quy) sẽ làm **treo UI hoàn toàn**.
 
-Gợi ý trả lời: Điểm mấu chốt là WeakMap không ngăn cản Garbage Collector dọn dẹp các key (object). Nó cực kỳ hữu ích khi bạn muốn gắn metadata vào một object mà không muốn "giữ chân" object đó trong bộ nhớ (ví dụ: lưu cache dữ liệu cho DOM element).
+---
+
+## 2. Closures và Memory Leak
+
+**🎯 Mục đích:** Kiểm tra kiến thức về quản lý bộ nhớ.
+
+**💡 Gợi ý trả lời:**
+
+Có, nếu closure giữ tham chiếu đến các object lớn trong khi bản thân closure đó không được giải phóng (ví dụ: gán vào một biến global hoặc listener không được `remove`).
+
+**Cách phòng tránh:**
+- Gán `null` cho biến sau khi dùng xong.
+- Đảm bảo lifecycle của listener rõ ràng (luôn `removeEventListener` khi không cần).
+
+---
+
+## 3. Prototypal Inheritance vs. Class-based Inheritance
+
+**🎯 Mục đích:** Kiểm tra sự hiểu biết về bản chất ngôn ngữ.
+
+**💡 Gợi ý trả lời:**
+
+JS là ngôn ngữ **dynamic**. Prototype cho phép các object chia sẻ phương thức trực tiếp mà không cần cấu trúc phân cấp cứng nhắc. Điều này giúp:
+- **Tiết kiệm bộ nhớ** — các instance dùng chung phương thức qua prototype chain.
+- **Linh hoạt hơn** trong việc mở rộng object lúc runtime.
+
+---
+
+## 4. Deep Clone Object Phức Tạp
+
+**🎯 Mục đích:** Kiểm tra kinh nghiệm thực tế với dữ liệu (Date, RegExp, Function).
+
+**💡 Gợi ý trả lời:**
+
+Đừng chỉ dùng `JSON.parse(JSON.stringify())` — nó **mất hàm** và **lỗi với `Date`**. Senior nên đề cập đến:
+
+| Phương pháp | Ưu điểm | Nhược điểm |
+|---|---|---|
+| `JSON.parse(JSON.stringify())` | Đơn giản | Mất `Function`, `Date`, `undefined` |
+| `structuredClone()` | Native, hỗ trợ `Date`, `Map`, `Set` | Không clone `Function` |
+| `lodash.cloneDeep()` | Xử lý hầu hết trường hợp | Cần cài thư viện |
+| Hàm đệ quy tự viết | Kiểm soát hoàn toàn | Tốn công |
+
+---
+
+## 5. Map/Set vs. WeakMap/WeakSet
+
+**🎯 Mục đích:** Kiểm tra kỹ năng tối ưu bộ nhớ cao cấp.
+
+**💡 Gợi ý trả lời:**
+
+Điểm mấu chốt là **`WeakMap` không ngăn cản Garbage Collector** dọn dẹp các key (object). Nó cực kỳ hữu ích khi bạn muốn gắn metadata vào một object mà không muốn "giữ chân" object đó trong bộ nhớ.
+
+**Ví dụ thực tế:** Lưu cache dữ liệu cho DOM element — khi element bị xóa khỏi DOM, entry trong `WeakMap` sẽ tự động được dọn dẹp.
