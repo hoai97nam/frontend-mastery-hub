@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Chain → Frame Drop Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --accent: #f97316;
+            --accent2: #818cf8;
+            --danger: #f43f5e;
+            --safe: #34d399;
+            --text: #e2e8f0;
+            --muted: #64748b;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 2rem 2.5rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        header h1 span {
+            color: var(--accent);
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            background: var(--border);
+            color: var(--muted);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .panel {
+            padding: 2rem 2.5rem;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .panel:last-child {
+            border-right: none;
+        }
+
+        .panel-title {
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot.danger {
+            background: var(--danger);
+            box-shadow: 0 0 8px var(--danger);
+        }
+
+        .dot.safe {
+            background: var(--safe);
+            box-shadow: 0 0 8px var(--safe);
+        }
+
+        /* Animation box */
+        .animation-area {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ball {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: slide 1.2s linear infinite;
+        }
+
+        .ball.danger-ball {
+            background: radial-gradient(circle at 35% 35%, #fb923c, var(--danger));
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+        }
+
+        .ball.safe-ball {
+            background: radial-gradient(circle at 35% 35%, #6ee7b7, var(--safe));
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
+        @keyframes slide {
+            0% {
+                left: 8px;
+            }
+
+            100% {
+                left: calc(100% - 52px);
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            width: 100%;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger:active {
+            transform: translateY(0);
+        }
+
+        .btn-safe {
+            background: var(--safe);
+            color: #0a0a0f;
+        }
+
+        .btn-safe:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-safe:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .stat-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .stat-value.red {
+            color: var(--danger);
+        }
+
+        .stat-value.green {
+            color: var(--safe);
+        }
+
+        .stat-value.yellow {
+            color: #fbbf24;
+        }
+
+        /* Code block */
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            line-height: 1.7;
+            color: #94a3b8;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .code-block .kw {
+            color: var(--accent2);
+        }
+
+        .code-block .fn {
+            color: #fbbf24;
+        }
+
+        .code-block .cm {
+            color: #475569;
+            font-style: italic;
+        }
+
+        .code-block .str {
+            color: var(--safe);
+        }
+
+        /* Log */
+        .log {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            line-height: 1.8;
+            color: var(--muted);
+            min-height: 80px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .log .entry {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .log .entry.warn {
+            color: #fbbf24;
+        }
+
+        .log .entry.good {
+            color: var(--safe);
+        }
+
+        .log .entry.info {
+            color: var(--accent2);
+        }
+
+        .log .ts {
+            color: #334155;
+        }
+
+        /* Guide section */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 2.5rem;
+        }
+
+        .guide-title {
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+        }
+
+        .step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            position: relative;
+        }
+
+        .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .step p {
+            font-size: 0.72rem;
+            line-height: 1.5;
+            color: #94a3b8;
+        }
+
+        .step p strong {
+            color: var(--text);
+        }
+
+        .arrow {
+            position: absolute;
+            right: -0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--border);
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .highlight-box {
+            background: rgba(249, 115, 22, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.75rem;
+            color: #fdba74;
+            line-height: 1.6;
+            margin-top: 0.75rem;
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Promise Chain <span>→</span> Frame Drop</h1>
+        <span class="badge">DEMO</span>
+        <span class="badge">DevTools Performance</span>
+    </header>
+
+    <main>
+        <!-- LEFT: BAD -->
+        <div class="panel">
+            <div class="panel-title">
+                <span class="dot danger"></span>
+                BAD — Promise chain dài (frame drop)
+            </div>
+
+            <div class="animation-area">
+                <div class="ball danger-ball" id="ball-bad"></div>
+            </div>
+
+            <div class="code-block"><span class="kw">function</span> <span class="fn">heavyPromiseChain</span>() {
+                <span class="kw">let</span> chain = Promise.<span class="fn">resolve</span>();
+                <span class="cm">// 5000 microtask liên tiếp</span>
+                <span class="kw">for</span> (<span class="kw">let</span> i = 0; i < 5000; i++) { chain=chain.<span
+                    class="fn">then</span>(() => {
+                    <span class="cm">// work nhỏ nhưng x5000 → vượt 16.6ms</span>
+                    Math.<span class="fn">sqrt</span>(Math.<span class="fn">random</span>() * 99999);
+                    });
+                    }
+                    <span class="kw">return</span> chain;
+                    }
+            </div>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Microtasks</div>
+                    <div class="stat-value red" id="bad-count">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Block time</div>
+                    <div class="stat-value yellow" id="bad-time">—</div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger" id="btn-bad" onclick="runBad()">
+                ▶ CHẠY (quan sát ball giật)
+            </button>
+
+            <div class="log" id="log-bad">
+                <div class="entry info"><span class="ts">[ready]</span> Nhấn để bắt đầu...</div>
+            </div>
+        </div>
+
+        <!-- RIGHT: GOOD -->
+        <div class="panel">
+            <div class="panel-title">
+                <span class="dot safe"></span>
+                GOOD — Chunk + requestAnimationFrame
+            </div>
+
+            <div class="animation-area">
+                <div class="ball safe-ball" id="ball-good"></div>
+            </div>
+
+            <div class="code-block"><span class="kw">function</span> <span class="fn">chunkedWork</span>(total,
+                chunkSize) {
+                <span class="kw">let</span> done = 0;
+                <span class="kw">return new</span> <span class="fn">Promise</span>(resolve => {
+                <span class="kw">function</span> <span class="fn">nextChunk</span>() {
+                <span class="kw">const</span> end = Math.<span class="fn">min</span>(done + chunkSize, total);
+                <span class="kw">while</span> (done < end) { Math.<span class="fn">sqrt</span>(Math.<span
+                        class="fn">random</span>() * 99999);
+                    done++;
+                    }
+                    <span class="kw">if</span> (done < total) <span class="fn">requestAnimationFrame</span>(nextChunk);
+                        <span class="cm">// nhường render</span>
+                        <span class="kw">else</span> <span class="fn">resolve</span>();
+                        }
+                        <span class="fn">requestAnimationFrame</span>(nextChunk);
+                        });
+                        }
+            </div>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Chunks / frame</div>
+                    <div class="stat-value green" id="good-count">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total time</div>
+                    <div class="stat-value green" id="good-time">—</div>
+                </div>
+            </div>
+
+            <button class="btn btn-safe" id="btn-good" onclick="runGood()">
+                ▶ CHẠY (ball mượt mà)
+            </button>
+
+            <div class="log" id="log-good">
+                <div class="entry info"><span class="ts">[ready]</span> Nhấn để bắt đầu...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="guide-title">📊 Cách đo bằng DevTools Performance Tab</div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">BƯỚC 01</div>
+                <p>Mở DevTools (<strong>F12</strong>), chọn tab <strong>Performance</strong></p>
+                <span class="arrow">›</span>
+            </div>
+            <div class="step">
+                <div class="step-num">BƯỚC 02</div>
+                <p>Nhấn nút <strong>Record</strong> (hình tròn đỏ) hoặc <strong>Ctrl+E</strong></p>
+                <span class="arrow">›</span>
+            </div>
+            <div class="step">
+                <div class="step-num">BƯỚC 03</div>
+                <p>Nhấn nút <strong>CHẠY BAD</strong>, đợi xong, nhấn <strong>Stop</strong></p>
+                <span class="arrow">›</span>
+            </div>
+            <div class="step">
+                <div class="step-num">BƯỚC 04</div>
+                <p>Tìm thanh <strong>Main</strong> → tìm block màu đỏ/cam = <strong>Long Task (&gt;50ms)</strong></p>
+                <span class="arrow">›</span>
+            </div>
+            <div class="step">
+                <div class="step-num">BƯỚC 05</div>
+                <p>So sánh: <strong>Frames</strong> row → BAD có frame dài bất thường, GOOD đều đặn ~16ms</p>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>Điều cần tìm trong Performance tab:</strong>
+            Dòng <strong>Frames</strong> ở trên cùng — BAD sẽ có các frame cao bất thường (màu vàng/đỏ).
+            Dòng <strong>Main</strong> — BAD sẽ có một block task dài liên tục thay vì nhiều task nhỏ xen kẽ render.
+            Hover vào block đó → DevTools sẽ hiện <strong>"Long task"</strong> và duration vượt 16.6ms.
+        </div>
+    </footer>
+
+    <script>
+        function log(id, msg, type = 'info') {
+            const el = document.getElementById(id);
+            const ts = new Date().toLocaleTimeString('vi', { hour12: false });
+            el.innerHTML += `<div class="entry ${type}"><span class="ts">[${ts}]</span> ${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
+        }
+
+        // BAD: Promise chain 5000 microtasks
+        async function runBad() {
+            const btn = document.getElementById('btn-bad');
+            btn.disabled = true;
+            document.getElementById('log-bad').innerHTML = '';
+            document.getElementById('bad-count').textContent = '0';
+            document.getElementById('bad-time').textContent = '—';
+
+            log('log-bad', 'Bắt đầu 5000 microtasks...', 'warn');
+            log('log-bad', 'Quan sát ball — nó sẽ ĐỨNG HÌNH', 'warn');
+
+            const start = performance.now();
+            let count = 0;
+            let chain = Promise.resolve();
+
+            for (let i = 0; i < 5000; i++) {
+                chain = chain.then(() => {
+                    Math.sqrt(Math.random() * 99999);
+                    count++;
+                    if (count % 1000 === 0) {
+                        document.getElementById('bad-count').textContent = count;
+                    }
+                });
+            }
+
+            await chain;
+
+            const elapsed = (performance.now() - start).toFixed(1);
+            document.getElementById('bad-count').textContent = count;
+            document.getElementById('bad-time').textContent = elapsed + 'ms';
+            log('log-bad', `Xong. Block ${elapsed}ms → ~${Math.round(elapsed / 16.6)} frames bị drop`, 'warn');
+            btn.disabled = false;
+        }
+
+        // GOOD: rAF chunking
+        async function runGood() {
+            const btn = document.getElementById('btn-good');
+            btn.disabled = true;
+            document.getElementById('log-good').innerHTML = '';
+            document.getElementById('good-count').textContent = '0';
+            document.getElementById('good-time').textContent = '—';
+
+            log('log-good', 'Bắt đầu chunked work...', 'good');
+            log('log-good', 'Ball tiếp tục chạy mượt ✓', 'good');
+
+            const start = performance.now();
+            const TOTAL = 5000;
+            const CHUNK = 100;
+            let done = 0;
+            let frameCount = 0;
+
+            await new Promise(resolve => {
+                function nextChunk() {
+                    const end = Math.min(done + CHUNK, TOTAL);
+                    while (done < end) {
+                        Math.sqrt(Math.random() * 99999);
+                        done++;
+                    }
+                    frameCount++;
+                    document.getElementById('good-count').textContent = frameCount;
+
+                    if (done < TOTAL) {
+                        requestAnimationFrame(nextChunk);
+                    } else {
+                        resolve();
+                    }
+                }
+                requestAnimationFrame(nextChunk);
+            });
+
+            const elapsed = (performance.now() - start).toFixed(1);
+            document.getElementById('good-time').textContent = elapsed + 'ms';
+            log('log-good', `Xong trong ${frameCount} frames (~${elapsed}ms)`, 'good');
+            log('log-good', `Mỗi frame xử lý ${CHUNK} items, render không bị chặn ✓`, 'good');
+            btn.disabled = false;
+        }
+    </script>
+</body>
+
+</html>
