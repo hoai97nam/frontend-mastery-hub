@@ -75,4 +75,15 @@ JS là ngôn ngữ **dynamic**. Prototype cho phép các object chia sẻ phươ
 
 Điểm mấu chốt là **`WeakMap` không ngăn cản Garbage Collector** dọn dẹp các key (object). Nó cực kỳ hữu ích khi bạn muốn gắn metadata vào một object mà không muốn "giữ chân" object đó trong bộ nhớ.
 
-**Ví dụ thực tế:** Lưu cache dữ liệu cho DOM element — khi element bị xóa khỏi DOM, entry trong `WeakMap` sẽ tự động được dọn dẹp.
+**Ví dụ thực tế:** Lưu cache dữ liệu cho DOM element — khi element bị xóa khỏi DOM, entry trong `WeakMap` sẽ tự động được dọn dẹp.
+
+---
+
+## 🚀 Các chuyên đề Senior chuyên sâu (Deep Dive)
+
+Để đạt mức độ Senior/Staff, bạn cần nắm vững các chủ đề hệ thống dưới đây:
+
+1.  **[Hiệu năng & V8 Engine](./performance-v8.md)**: Cách JS thực thi bên dưới.
+2.  **[Design Patterns & Kiến trúc](./design-patterns.md)**: Cách tổ chức code quy mô lớn.
+3.  **[Bất đồng bộ nâng cao](./advanced-async.md)**: Làm chủ luồng dữ liệu phức tạp.
+
