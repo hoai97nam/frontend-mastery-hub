@@ -330,7 +330,7 @@ frontend-mastery-hub/
 | Coding Challenges | `06-coding-challenges/` | 🔴 Chưa có nội dung | Thư mục tạo sẵn, trống |
 | Micro Frontends | `07-micro-frontends/` | 🟢 Đầy đủ | 5 file, nội dung phong phú |
 | Design Patterns | `08-design-patterns/` | 🟢 Đầy đủ | 6 file, C# focus, SOLID + GoF đầy đủ |
-| Data Structures | `09-data-structures/` | 🟡 Đang xây | linear/ xong, hash/ xong, tree/ xong, graph/modern/ chưa tạo |
+| Data Structures | `09-data-structures/` | 🟢 Đầy đủ | linear, hash, tree, graph, và modern đã hoàn thành 100% |
 
 ---
 
@@ -350,6 +350,7 @@ frontend-mastery-hub/
 
 - **2026-06-28**: Tạo module `09-data-structures/` — phân loại theo nhóm chức năng (Linear, Hash, Tree, Graph, Modern), template file chuẩn, roadmap 4 tuần. Đã hoàn thành: `01-linear/` (5 DS: Array, Linked List, Stack, Queue, Deque), `02-hash-based/hash-map.md`.
 - **2026-06-28**: Hoàn thành `02-hash-based/` (HashSet, Bloom Filter) và `03-tree/` (Binary Tree, BST, Heap, Trie, Segment Tree).
+- **2026-06-28**: Hoàn thành các cấu trúc còn lại: `04-graph/` (Graph, DAG), `05-modern/` (LRU Cache, Skip List, Persistent DS, Rope, Disjoint-Set, HyperLogLog, Count-Min Sketch) và file phỏng vấn `interviews/qna.md`.
 
 ---
 
@@ -360,10 +361,7 @@ Khi tiếp tục làm việc với repo này, agent cần biết:
 1. **Ngôn ngữ chính**: Tiếng Việt cho giải thích, tiếng Anh cho thuật ngữ kỹ thuật
 2. **Level đối tượng**: Middle → Senior frontend developer
 3. **File template DS**: Xem mục 4 — "Cấu trúc nội dung — Mỗi Data Structure file"
-4. **Việc còn thiếu trong 09-data-structures**:
-   - Toàn bộ `04-graph/` (2 DS)
-   - Toàn bộ `05-modern/` (6 DS)
-   - `interviews/qna.md` (40+ câu hỏi)
+4. **Việc còn thiếu trong 09-data-structures**: Đã hoàn thành toàn bộ 100%.
 5. **Conventions bắt buộc**: Kebab-case tên file, emoji ở heading, Mermaid cho diagrams, bảng Big-O, code JS chạy được có comment, section "🔧 Trong Framework" cho mỗi DS
 6. **Path repo**: `c:\Users\t14\Documents\frontend-mastery-hub\`
 7. **GitHub**: `hoai97nam/frontend-mastery-hub`
