@@ -65,6 +65,14 @@ frontend-mastery-hub/
 │   │   ├── 03-effect-hooks.md       # useEffect, useLayoutEffect, useInsertionEffect
 │   │   ├── 04-performance-hooks.md  # useMemo, useCallback, useTransition, useDeferredValue
 │   │   └── 05-new-hooks.md          # React 19+: use, useOptimistic, useActionState, useFormStatus
+│   ├── component-patterns/          # React Component Design Patterns ✅
+│   │   ├── README.md
+│   │   ├── 01-compound-component.md # Compound Component
+│   │   ├── 02-render-props.md       # Render Props
+│   │   ├── 03-controlled-uncontrolled.md # Controlled & Uncontrolled
+│   │   ├── 04-hoc.md                # Higher-Order Component (HOC)
+│   │   ├── 05-state-reducer-control-props.md # State Reducer & Control Props
+│   │   └── interviews.md            # Q&A + 2 tình huống thiết kế thực tế
 │   ├── performance/                 # Tối ưu hiệu năng React ✅
 │   │   ├── README.md
 │   │   ├── 01-rendering-optimization.md  # Re-render, memo, reconciliation
@@ -165,6 +173,17 @@ frontend-mastery-hub/
 | `03-effect-hooks.md` | `useEffect`, `useLayoutEffect`, `useInsertionEffect` |
 | `04-performance-hooks.md` | `useMemo`, `useCallback`, `useTransition`, `useDeferredValue` |
 | `05-new-hooks.md` | `use`, `useOptimistic`, `useActionState`, `useFormStatus` (React 19+) |
+
+**component-patterns/**
+
+| File | Nội dung chính | Level |
+|------|----------------|-------|
+| `01-compound-component.md` | Compound Component (Context API vs cloneElement) | ⭐⭐ Mid |
+| `02-render-props.md` | Render Props, Children as a Function, vs Hooks | ⭐⭐ Mid |
+| `03-controlled-uncontrolled.md` | Controlled & Uncontrolled Components, State sync pitfalls | ⭐ Mid |
+| `04-hoc.md` | Higher-Order Component, forwardRef, copy static methods | ⭐⭐ Mid |
+| `05-state-reducer-control-props.md` | State Reducer Pattern & Control Props Pattern (Hybrid state) | ⭐⭐⭐ Senior |
+| `interviews.md` | Q&A + 2 tình huống thiết kế hệ thống thực tế | ⭐⭐⭐ Senior |
 
 **performance/**
 
@@ -324,7 +343,7 @@ frontend-mastery-hub/
 |--------|---------|-----------|---------|
 | JavaScript Core | `01-javascript/` | 🟡 Một phần | `concepts/` 4 file, `interviews/` 4 file; phần còn lại trống |
 | Styling | `02-styling/` | 🔴 Chưa có nội dung | Cấu trúc thư mục tạo sẵn |
-| React | `03-react/` | 🟢 Đầy đủ | hooks-patterns (5 file) + performance (5 file) |
+| React | `03-react/` | 🟢 Đầy đủ | hooks-patterns (5 file) + component-patterns (6 file) + performance (5 file) |
 | Angular | `04-angular/` | 🔴 Chưa có nội dung | Chỉ có README placeholder |
 | Vue | `05-vue/` | 🔴 Chưa có nội dung | Chỉ có README placeholder |
 | Coding Challenges | `06-coding-challenges/` | 🔴 Chưa có nội dung | Thư mục tạo sẵn, trống |
@@ -351,6 +370,7 @@ frontend-mastery-hub/
 - **2026-06-28**: Tạo module `09-data-structures/` — phân loại theo nhóm chức năng (Linear, Hash, Tree, Graph, Modern), template file chuẩn, roadmap 4 tuần. Đã hoàn thành: `01-linear/` (5 DS: Array, Linked List, Stack, Queue, Deque), `02-hash-based/hash-map.md`.
 - **2026-06-28**: Hoàn thành `02-hash-based/` (HashSet, Bloom Filter) và `03-tree/` (Binary Tree, BST, Heap, Trie, Segment Tree).
 - **2026-06-28**: Hoàn thành các cấu trúc còn lại: `04-graph/` (Graph, DAG), `05-modern/` (LRU Cache, Skip List, Persistent DS, Rope, Disjoint-Set, HyperLogLog, Count-Min Sketch) và file phỏng vấn `interviews/qna.md`.
+- **2026-06-28**: Bổ sung chủ đề Component Design Patterns vào module React (`03-react/component-patterns/`): Compound Component, Render Props, Controlled/Uncontrolled, HOC, State Reducer & Control Props, cùng tài liệu phỏng vấn chi tiết.
 
 ---
 
