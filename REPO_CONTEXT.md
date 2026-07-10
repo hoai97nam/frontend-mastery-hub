@@ -43,7 +43,9 @@ frontend-mastery-hub/
 │   │   └── lab.md                   # Lab thực hành
 │   ├── core-concepts/               # (trống - chưa có nội dung)
 │   ├── es6-plus/                    # (trống - chưa có nội dung)
-│   ├── web-apis/                    # (trống - chưa có nội dung)
+│   ├── web-apis/                    # Web APIs của trình duyệt ✅ (đầy đủ)
+│   │   ├── README.md                # Bản đồ học tập Web APIs
+│   │   └── real-time-communication.md # WebSocket, EventSource (SSE), Polling
 │   └── interviews/                  # Câu hỏi phỏng vấn JS
 │       ├── senior-questions.md
 │       ├── advanced-async.md
@@ -80,7 +82,6 @@ frontend-mastery-hub/
 │   │   ├── 03-state-data-perf.md         # Context perf, Zustand, selector
 │   │   ├── 04-network-data.md            # Caching, React Query
 │   │   └── 05-interview-qna.md           # 25+ câu hỏi phỏng vấn
-│   ├── state-management/            # (trống - Context, Zustand, Redux)
 │   └── interviews/                  # (trống)
 │
 ├── 04-angular/                      # Angular
@@ -141,8 +142,12 @@ frontend-mastery-hub/
 │   ├── 05-modern/                   # ❌ Chưa tạo
 │   └── interviews/                  # ❌ Chưa tạo
 │
-└── docs/
-    └── superpowers/                 # (trống)
+├── docs/
+│   └── superpowers/                 # (trống)
+│
+└── 10-state-management/             # State Management (Chung) ✅ (đầy đủ)
+    ├── README.md                    # So sánh paradigms, Decision matrix, Mapping
+    └── interviews.md                # Q&A Senior & Tình huống thiết kế tài chính
 ```
 
 ---
@@ -161,6 +166,8 @@ frontend-mastery-hub/
 | `interviews/advanced-async.md` | Promise, async/await, concurrency |
 | `interviews/design-patterns.md` | Design patterns trong JS |
 | `interviews/performance-v8.md` | V8 engine, JIT, memory management |
+| `web-apis/README.md` | Bản đồ học tập các Web APIs của trình duyệt |
+| `web-apis/real-time-communication.md` | Tài liệu chuyên sâu về WebSocket, EventSource (SSE), Polling, Reconnect backoff |
 
 ### 📁 03-react (Module đầy đủ nhất)
 
@@ -250,6 +257,13 @@ frontend-mastery-hub/
 - `04-graph/`: Graph, DAG
 - `05-modern/`: LRU Cache, Skip List, Persistent DS, Rope, Union-Find, HyperLogLog
 - `interviews/qna.md`: 40+ câu hỏi phỏng vấn
+
+### 📁 10-state-management (Chủ đề bổ trợ chung)
+
+| File | Nội dung |
+|------|---------|
+| `README.md` | Tổng quan 5 trường phái (Flux, Proxy, Atomic, Reactive Streams, Signals), Ma trận quyết định & Đối chiếu thư viện giữa các framework |
+| `interviews.md` | Q&A phỏng vấn Senior (Zustand, RxJS, Signals, memory leaks, race conditions) & Tình huống thiết kế Finance Dashboard real-time |
 
 ---
 
@@ -341,7 +355,7 @@ frontend-mastery-hub/
 
 | Module | Thư mục | Trạng thái | Ghi chú |
 |--------|---------|-----------|---------|
-| JavaScript Core | `01-javascript/` | 🟡 Một phần | `concepts/` 4 file, `interviews/` 4 file; phần còn lại trống |
+| JavaScript Core | `01-javascript/` | 🟡 Một phần | `concepts/` 4 file, `interviews/` 4 file, `web-apis/` 2 file; phần còn lại trống |
 | Styling | `02-styling/` | 🔴 Chưa có nội dung | Cấu trúc thư mục tạo sẵn |
 | React | `03-react/` | 🟢 Đầy đủ | hooks-patterns (5 file) + component-patterns (6 file) + performance (5 file) |
 | Angular | `04-angular/` | 🔴 Chưa có nội dung | Chỉ có README placeholder |
@@ -350,6 +364,7 @@ frontend-mastery-hub/
 | Micro Frontends | `07-micro-frontends/` | 🟢 Đầy đủ | 5 file, nội dung phong phú |
 | Design Patterns | `08-design-patterns/` | 🟢 Đầy đủ | 6 file, C# focus, SOLID + GoF đầy đủ |
 | Data Structures | `09-data-structures/` | 🟢 Đầy đủ | linear, hash, tree, graph, và modern đã hoàn thành 100% |
+| State Management | `10-state-management/` | 🟢 Đầy đủ | 2 file, so sánh paradigms liên framework & Q&A Senior |
 
 ---
 
@@ -361,6 +376,7 @@ frontend-mastery-hub/
 09-data-structures  →  06-coding-challenges # Bài tập thực hành DS
 03-react  ←→  09-data-structures         # React Fiber dùng DAG, useState/undo dùng Stack
 07-micro-frontends  →  03-react           # Module Federation với React
+10-state-management  ←→  03-react/04-angular/05-vue # Bổ trợ giải pháp quản lý trạng thái cho các framework
 ```
 
 ---
@@ -371,6 +387,8 @@ frontend-mastery-hub/
 - **2026-06-28**: Hoàn thành `02-hash-based/` (HashSet, Bloom Filter) và `03-tree/` (Binary Tree, BST, Heap, Trie, Segment Tree).
 - **2026-06-28**: Hoàn thành các cấu trúc còn lại: `04-graph/` (Graph, DAG), `05-modern/` (LRU Cache, Skip List, Persistent DS, Rope, Disjoint-Set, HyperLogLog, Count-Min Sketch) và file phỏng vấn `interviews/qna.md`.
 - **2026-06-28**: Bổ sung chủ đề Component Design Patterns vào module React (`03-react/component-patterns/`): Compound Component, Render Props, Controlled/Uncontrolled, HOC, State Reducer & Control Props, cùng tài liệu phỏng vấn chi tiết.
+- **2026-07-10**: Tạo mới module độc lập `10-state-management/` bổ trợ cho các framework (React, Vue, Angular), bao gồm `README.md` (so sánh 5 paradigms, decision matrix, code examples) và `interviews.md` (Q&A nâng cao, tình huống thiết kế tài chính real-time).
+- **2026-07-10**: Bổ sung tài liệu Web APIs trong `01-javascript/web-apis/` gồm `README.md` (bản đồ Web APIs) và `real-time-communication.md` (WebSocket, EventSource, Polling, thuật toán Exponential Backoff và Jitter cho reconnect).
 
 ---
 

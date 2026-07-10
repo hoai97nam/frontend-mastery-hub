@@ -10,7 +10,7 @@
 |---------|---------|
 | [`hooks-patterns/`](./hooks-patterns/README.md) | Tất cả React Hooks — phân loại, use cases, code examples, câu hỏi phỏng vấn |
 | [`component-patterns/`](./component-patterns/README.md) | Các mẫu thiết kế component (Compound Component, Render Props, Controlled/Uncontrolled...) |
-| [`state-management/`](./state-management/) | Context, Zustand, Redux, React Query |
+| [`state-management/`](../10-state-management/README.md) | [**Chủ đề độc lập**] Tổng quan paradigms (Flux, Proxy, Atomic, Signals, Observables) và mapping liên framework |
 | [`performance/`](./performance/) | Optimization, profiling, lazy loading |
 | [`interviews/`](./interviews/) | Câu hỏi phỏng vấn React tổng hợp |
 
