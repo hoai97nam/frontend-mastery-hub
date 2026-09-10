@@ -148,6 +148,12 @@ frontend-mastery-hub/
 └── 10-state-management/             # State Management (Chung) ✅ (đầy đủ)
     ├── README.md                    # So sánh paradigms, Decision matrix, Mapping
     └── interviews.md                # Q&A Senior & Tình huống thiết kế tài chính
+
+└── 11-build-tools-compilers/        # Build Tools & Compilers ✅ (đầy đủ)
+    ├── README.md                    # Decision Matrix, Pipeline, Pipeline Sơ đồ Mermaid
+    ├── compilers-jit-aot.md         # AST, V8 JIT (TurboFan/Ignition, Deopt), AOT (Angular, Svelte), SWC
+    ├── bundlers-webpack-vite.md     # Webpack (Tapable, Loaders/Plugins, SplitChunks, HMR), Vite, Tree-shaking
+    └── interviews.md                # 25+ Q&A Senior/Architect & 3 Tình huống thiết kế thực tế
 ```
 
 ---
@@ -265,6 +271,15 @@ frontend-mastery-hub/
 | `README.md` | Tổng quan 5 trường phái (Flux, Proxy, Atomic, Reactive Streams, Signals), Ma trận quyết định & Đối chiếu thư viện giữa các framework |
 | `interviews.md` | Q&A phỏng vấn Senior (Zustand, RxJS, Signals, memory leaks, race conditions) & Tình huống thiết kế Finance Dashboard real-time |
 
+### 📁 11-build-tools-compilers
+
+| File | Nội dung |
+|------|---------|
+| `README.md` | Tổng quan Build Systems & Compilers, Decision Matrix chọn tool (Webpack, Vite, Rollup, esbuild, SWC, Rspack) & Pipeline tổng thể |
+| `compilers-jit-aot.md` | Lexer/Parser, AST, JIT (V8 Ignition + TurboFan, Inline Cache, Hidden Classes, Deopt prevention), AOT (Angular Ivy, Svelte reactivity compiler) & Transpilers (Babel vs SWC) |
+| `bundlers-webpack-vite.md` | Dependency Graph resolution, Webpack Deep Dive (Tapable, Custom Loader/Plugin, SplitChunks, HMR internals, Module Federation), Vite/Rollup vs Rust engines, Tree-shaking & Scope Hoisting |
+| `interviews.md` | 25+ Q&A phân cấp (Junior -> Architect) & 3 Tình huống thiết kế thực tế (Tối ưu bundle monolith 120MB, Migration sang Vite+SWC, Long-term caching & Micro Frontends delivery) |
+
 ---
 
 ## 4. QUY ƯỚC & CONVENTIONS
@@ -365,6 +380,7 @@ frontend-mastery-hub/
 | Design Patterns | `08-design-patterns/` | 🟢 Đầy đủ | 6 file, C# focus, SOLID + GoF đầy đủ |
 | Data Structures | `09-data-structures/` | 🟢 Đầy đủ | linear, hash, tree, graph, và modern đã hoàn thành 100% |
 | State Management | `10-state-management/` | 🟢 Đầy đủ | 2 file, so sánh paradigms liên framework & Q&A Senior |
+| Build Tools & Compilers | `11-build-tools-compilers/` | 🟢 Đầy đủ | 4 file, Webpack, Vite, JIT, AOT, SWC, Tree-shaking & Q&A Senior/Architect |
 
 ---
 
@@ -377,6 +393,7 @@ frontend-mastery-hub/
 03-react  ←→  09-data-structures         # React Fiber dùng DAG, useState/undo dùng Stack
 07-micro-frontends  →  03-react           # Module Federation với React
 10-state-management  ←→  03-react/04-angular/05-vue # Bổ trợ giải pháp quản lý trạng thái cho các framework
+11-build-tools-compilers  ←→  01-javascript/03-react/07-micro-frontends # V8 JIT/Deopt, AOT, Webpack Module Federation
 ```
 
 ---
@@ -389,6 +406,7 @@ frontend-mastery-hub/
 - **2026-06-28**: Bổ sung chủ đề Component Design Patterns vào module React (`03-react/component-patterns/`): Compound Component, Render Props, Controlled/Uncontrolled, HOC, State Reducer & Control Props, cùng tài liệu phỏng vấn chi tiết.
 - **2026-07-10**: Tạo mới module độc lập `10-state-management/` bổ trợ cho các framework (React, Vue, Angular), bao gồm `README.md` (so sánh 5 paradigms, decision matrix, code examples) và `interviews.md` (Q&A nâng cao, tình huống thiết kế tài chính real-time).
 - **2026-07-10**: Bổ sung tài liệu Web APIs trong `01-javascript/web-apis/` gồm `README.md` (bản đồ Web APIs) và `real-time-communication.md` (WebSocket, EventSource, Polling, thuật toán Exponential Backoff và Jitter cho reconnect).
+- **2026-09-10**: Tạo mới module `11-build-tools-compilers/` gồm `README.md` (Decision Matrix, Build Pipeline), `compilers-jit-aot.md` (AST, V8 Ignition + TurboFan JIT, Inline Cache/Deopt, Angular/Svelte AOT, SWC/esbuild), `bundlers-webpack-vite.md` (Webpack Tapable, Loaders/Plugins, SplitChunks, HMR, Module Federation, Vite, Tree-shaking), và `interviews.md` (25+ Q&A phân cấp & 3 tình huống thiết kế thực tế cho Senior/Architect).
 
 ---
 
