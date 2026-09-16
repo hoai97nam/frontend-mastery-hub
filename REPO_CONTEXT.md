@@ -285,81 +285,31 @@ frontend-mastery-hub/
 ## 4. QUY ƯỚC & CONVENTIONS
 
 ### Đặt tên thư mục
-- **Dùng số thứ tự 2 chữ số** cho module cấp 1: `01-javascript`, `02-styling`, `03-react`...
-- **Dùng số thứ tự** cho sub-module trong data-structures: `01-linear`, `02-hash-based`...
-- **Kebab-case** cho tất cả tên thư mục: `hooks-patterns`, `state-management`, `micro-frontends`
-- **Tên mô tả chủ đề** không dùng viết tắt khó hiểu
-
-### Đặt tên file
-- **Kebab-case**: `closure.md`, `event-loop.md`, `hash-map.md`
-- **Có số thứ tự** khi trong một series có thứ tự học tập: `01-state-hooks.md`, `02-context-ref-hooks.md`
-- Luôn có `README.md` ở mỗi thư mục làm **index/entry point**
-- File phỏng vấn đặt tên `interviews.md` hoặc trong thư mục `interviews/`
-
-### Cấu trúc nội dung — Module lớn (README.md)
+- **Dùng số thứ tự 2 chữ số** cho module c### Quy ước File Keywords (`keywords.md`)
+- **Vị trí**: Mỗi thư mục chủ đề (module folder hoặc subfolder) BẮT BUỘC phải chứa 1 file `keywords.md`.
+- **Mục đích**: Tập hợp các thuật ngữ, cơ chế bên dưới (under-the-hood mechanisms), công nghệ nâng cao và tư duy thiết kế ở cấp độ **Senior/Architect** để tra cứu, đào sâu và gây ấn tượng trong phỏng vấn kỹ thuật.
+- **Rule tự động cập nhật**: Khi bổ sung bất kỳ tài liệu lý thuyết mới nào vào repo, người viết/AI Assistant **bắt buộc** phải trích xuất các từ khóa Senior mới xuất hiện và cập nhật ngay vào file `keywords.md` của thư mục tương ứng.
 
 ```markdown
-# [Emoji] Tên Module — Tiêu đề mô tả (tiếng Việt)
+# 🔑 Senior Keywords — [Tên Chủ Đề]
 
-> Quote ngắn mô tả triết lý/mục tiêu
+> Tổng hợp các từ khóa, cơ chế và thuật ngữ cốt lõi khẳng định năng lực Senior.
 
----
+## 📋 Bảng Tra Cứu Từ Khóa Senior
+| Phân loại | Thuật ngữ / Keyword | Senior Pitch (Điểm đắt giá) | Từ khóa tìm kiếm mở rộng |
 
-## 📂 Cấu Trúc Thư Mục
-| File | Nội dung |  ← Bảng mapping file → nội dung
-
-## 1. Khái niệm chính
-
-## 2. So sánh / Decision Matrix
-| Tiêu chí | Option A | Option B |  ← Bảng so sánh
-
-## 3. Nội dung sâu (mermaid diagrams, code examples)
-```
-
-### Cấu trúc nội dung — Mỗi Data Structure file
-
-```markdown
-# [Emoji] Tên Data Structure
-
-## 🧠 Định nghĩa      ← Giải thích như nói với người ngoài ngành
-## ⏱️ Big-O Table     ← Bảng complexity đầy đủ
-## 💻 Code JS         ← Implementation code chạy được, có comment
-## 🔧 Trong Framework ← React/Vue/Angular/Node dùng ở đâu
-## 🕵️ Kỹ thuật ẩn    ← Điều ít người nhận ra
-## ❓ Bẫy phỏng vấn   ← Câu hỏi mẹo
-```
-
-### Cấu trúc nội dung — React Hooks files
-
-```markdown
-# [Emoji] Tên Hook Group
-
-## Giới thiệu hook
-## Cú pháp
-## Use cases (kèm code example)
-## Anti-patterns / Lỗi phổ biến
-## So sánh với hooks liên quan
-## Câu hỏi phỏng vấn
-```
-
-### Cấu trúc nội dung — interviews.md
-
-```markdown
-# Q&A Phỏng vấn [Chủ đề]
-
-## Level phân cấp (Junior / Middle / Senior)
-
-**Q:** Câu hỏi?
-**A:** Trả lời đầy đủ
-
-## Tình huống thiết kế thực tế (dành cho Senior)
+## 🎯 Chi Tiết Theo Nhóm Chuyên Sâu
+### 1. Cơ chế bên dưới (Under the Hood)
+### 2. Tối ưu hiệu năng & Bộ nhớ (Performance & Memory)
+### 3. Kiến trúc & Design Patterns (Architecture)
+### 4. Bẫy phỏng vấn & Case Studies (Interview Triggers)
 ```
 
 ### Quy ước Markdown
-- **Emoji** ở đầu heading chính: 📁 🔵 🟢 🟡 🔴 🟣 🎯 🧠 ⚡ 🚀 ⭐
+- **Emoji** ở đầu heading chính: 📁 🔵 🟢 🟡 🔴 🟣 🎯 🧠 ⚡ 🚀 ⭐ 🔑
 - **Bold** cho từ khóa quan trọng lần đầu xuất hiện
 - **Code block** với language tag: ` ```javascript `, ` ```mermaid `, ` ```typescript `
-- **Bảng Markdown** cho comparison, decision matrix, Big-O table
+- **Bảng Markdown** cho comparison, decision matrix, Big-O table, keywords matrix
 - **Mermaid diagrams** cho architecture diagrams và relationship maps
 - Văn bản **tiếng Việt** là chủ đạo, thuật ngữ kỹ thuật giữ nguyên tiếng Anh
 - Dùng `>` blockquote cho định nghĩa ngắn gọn ở đầu file
@@ -397,6 +347,33 @@ frontend-mastery-hub/
 ```
 
 ---
+
+## 7. LỊCH SỬ PHÁT TRIỂN
+
+- **2026-06-28**: Tạo module `09-data-structures/` — phân loại theo nhóm chức năng (Linear, Hash, Tree, Graph, Modern), template file chuẩn, roadmap 4 tuần. Đã hoàn thành: `01-linear/` (5 DS: Array, Linked List, Stack, Queue, Deque), `02-hash-based/hash-map.md`.
+- **2026-06-28**: Hoàn thành `02-hash-based/` (HashSet, Bloom Filter) và `03-tree/` (Binary Tree, BST, Heap, Trie, Segment Tree).
+- **2026-06-28**: Hoàn thành các cấu trúc còn lại: `04-graph/` (Graph, DAG), `05-modern/` (LRU Cache, Skip List, Persistent DS, Rope, Disjoint-Set, HyperLogLog, Count-Min Sketch) và file phỏng vấn `interviews/qna.md`.
+- **2026-06-28**: Bổ sung chủ đề Component Design Patterns vào module React (`03-react/component-patterns/`): Compound Component, Render Props, Controlled/Uncontrolled, HOC, State Reducer & Control Props, cùng tài liệu phỏng vấn chi tiết.
+- **2026-07-10**: Tạo mới module độc lập `10-state-management/` bổ trợ cho các framework (React, Vue, Angular), bao gồm `README.md` (so sánh 5 paradigms, decision matrix, code examples) và `interviews.md` (Q&A nâng cao, tình huống thiết kế tài chính real-time).
+- **2026-07-10**: Bổ sung tài liệu Web APIs trong `01-javascript/web-apis/` gồm `README.md` (bản đồ Web APIs) và `real-time-communication.md` (WebSocket, EventSource, Polling, thuật toán Exponential Backoff và Jitter cho reconnect).
+- **2026-09-10**: Tạo mới module `11-build-tools-compilers/` gồm `README.md` (Decision Matrix, Build Pipeline), `compilers-jit-aot.md` (AST, V8 Ignition + TurboFan JIT, Inline Cache/Deopt, Angular/Svelte AOT, SWC/esbuild), `bundlers-webpack-vite.md` (Webpack Tapable, Loaders/Plugins, SplitChunks, HMR, Module Federation, Vite, Tree-shaking), và `interviews.md` (25+ Q&A phân cấp & 3 tình huống thiết kế thực tế cho Senior/Architect).
+- **2026-09-16**: Thiết lập tiêu chuẩn Senior Keywords: Tạo file `keywords.md` ở từng thư mục trong repo và thiết lập quy tắc tự động bổ sung keywords cho tất cả tài liệu lý thuyết tương lai.
+
+---
+
+## 8. GHI CHÚ QUAN TRỌNG CHO CUỘC HỘI THOẠI MỚI
+
+Khi tiếp tục làm việc với repo này, agent cần biết:
+
+1. **Ngôn ngữ chính**: Tiếng Việt cho giải thích, tiếng Anh cho thuật ngữ kỹ thuật
+2. **Level đối tượng**: Middle → Senior frontend developer
+3. **File template DS**: Xem mục 4 — "Cấu trúc nội dung — Mỗi Data Structure file"
+4. **Việc còn thiếu trong 09-data-structures**: Đã hoàn thành toàn bộ 100%.
+5. **Conventions bắt buộc**: Kebab-case tên file, emoji ở heading, Mermaid cho diagrams, bảng Big-O, code JS chạy được có comment, section "🔧 Trong Framework" cho mỗi DS
+6. **Rule Keywords (`keywords.md`)**: Mỗi thư mục/chủ đề phải có file `keywords.md`. Khi tạo/bổ sung bất kỳ nội dung lý thuyết mới nào, BẮT BUỘC phải trích xuất các từ khóa Senior và cập nhật vào `keywords.md` tương ứng.
+7. **Path repo**: `c:\Users\t14\Documents\frontend-mastery-hub\`
+8. **GitHub**: `hoai97nam/frontend-mastery-hub`
+-
 
 ## 7. LỊCH SỬ PHÁT TRIỂN
 
