@@ -154,6 +154,20 @@ frontend-mastery-hub/
     ├── compilers-jit-aot.md         # AST, V8 JIT (TurboFan/Ignition, Deopt), AOT (Angular, Svelte), SWC
     ├── bundlers-webpack-vite.md     # Webpack (Tapable, Loaders/Plugins, SplitChunks, HMR), Vite, Tree-shaking
     └── interviews.md                # 25+ Q&A Senior/Architect & 3 Tình huống thiết kế thực tế
+
+├── 12-typescript/                   # TypeScript Core & Framework Applications ✅ (đầy đủ)
+│   ├── README.md                    # Bản đồ học tập, Decision Matrix & Compiler Pipeline
+│   ├── keywords.md                  # Bảng tra cứu từ khóa Senior TypeScript
+│   ├── type-system-advanced.md      # Generics, Conditional Types, infer, Mapped Types, Satisfies, Variance
+│   ├── framework-applications.md    # Polymorphic Components, Generic Hooks, Zod Schema, State/API typings
+│   └── interviews.md                # 25+ Q&A Senior & Thử thách Type-Level Programming
+
+└── 13-algorithms/                   # Algorithms: Sorting & Filtering ✅ (đầy đủ)
+    ├── README.md                    # Complexity Matrix (Big-O) & Client Algorithm Decision Tree
+    ├── keywords.md                  # Bảng tra cứu từ khóa Senior Algorithms
+    ├── sorting-algorithms.md        # QuickSort, MergeSort, TimSort (V8 Engine), Stability, Multi-Comparator
+    ├── filtering-searching.md       # Binary Search Bounds, Two Pointers, Sliding Window, Trie, Fuzzy Search
+    └── interviews.md                # 15+ Q&A & 3 Tình huống thiết kế UI System (Data Grid 100k+, Autocomplete)
 ```
 
 ---
@@ -280,12 +294,34 @@ frontend-mastery-hub/
 | `bundlers-webpack-vite.md` | Dependency Graph resolution, Webpack Deep Dive (Tapable, Custom Loader/Plugin, SplitChunks, HMR internals, Module Federation), Vite/Rollup vs Rust engines, Tree-shaking & Scope Hoisting |
 | `interviews.md` | 25+ Q&A phân cấp (Junior -> Architect) & 3 Tình huống thiết kế thực tế (Tối ưu bundle monolith 120MB, Migration sang Vite+SWC, Long-term caching & Micro Frontends delivery) |
 
+### 📁 12-typescript
+
+| File | Nội dung |
+|------|---------|
+| `README.md` | Tổng quan TypeScript Mastery, Decision Matrix (`interface` vs `type`, `any` vs `unknown` vs `never`, Enum vs Const Object), `tsc` build pipeline |
+| `keywords.md` | Tra cứu từ khóa Senior (Structural Typing, Type Erasure, Variance, Satisfies, Project References) |
+| `type-system-advanced.md` | Generics, Conditional Types (`infer`), Mapped & Template Literal Types, Type Guards vs Assertions, Satisfies & Const Type Params, Covariance & Contravariance, Branded Types |
+| `framework-applications.md` | Polymorphic Component (`as` prop), Custom Generic Hooks, Safe Context, Redux Toolkit & Zustand Typings, Zod Schema Inference & Typed Axios |
+| `interviews.md` | 25+ Câu hỏi phỏng vấn Senior/Architect, Bẫy Type System, Custom Utility Types (`DeepReadonly`, `SnakeToCamelCase`, `TupleToUnion`), Build Optimization |
+
+### 📁 13-algorithms
+
+| File | Nội dung |
+|------|---------|
+| `README.md` | Ma trận độ phức tạp Big-O (Time & Space), Decision Tree chọn thuật toán Client-side |
+| `keywords.md` | Từ khóa Senior (Stable Sort, TimSort, Binary Search Bounds, Two Pointers, Sliding Window, Trie, Levenshtein Distance, Web Workers) |
+| `sorting-algorithms.md` | QuickSort, MergeSort, TimSort (V8 Internals), Tính ổn định (Stability) trên UI Data Tables, Multi-Criteria Comparator Engine |
+| `filtering-searching.md` | Binary Search Lower/Upper Bound, Two Pointers & Sliding Window, Client-side Multi-Field Filter Engine, Trie Prefix Search & Levenshtein Fuzzy Search |
+| `interviews.md` | 3 Tình huống System Design UI (Data Grid 100k+ bản ghi, Smart Autocomplete Box, Top-K Elements với Min-Heap/QuickSelect) + 15 Q&A Senior |
+
 ---
 
 ## 4. QUY ƯỚC & CONVENTIONS
 
 ### Đặt tên thư mục
-- **Dùng số thứ tự 2 chữ số** cho module c### Quy ước File Keywords (`keywords.md`)
+- **Dùng số thứ tự 2 chữ số** cho module (ví dụ: `01-javascript`, `12-typescript`).
+
+### Quy ước File Keywords (`keywords.md`)
 - **Vị trí**: Mỗi thư mục chủ đề (module folder hoặc subfolder) BẮT BUỘC phải chứa 1 file `keywords.md`.
 - **Mục đích**: Tập hợp các thuật ngữ, cơ chế bên dưới (under-the-hood mechanisms), công nghệ nâng cao và tư duy thiết kế ở cấp độ **Senior/Architect** để tra cứu, đào sâu và gây ấn tượng trong phỏng vấn kỹ thuật.
 - **Rule tự động cập nhật**: Khi bổ sung bất kỳ tài liệu lý thuyết mới nào vào repo, người viết/AI Assistant **bắt buộc** phải trích xuất các từ khóa Senior mới xuất hiện và cập nhật ngay vào file `keywords.md` của thư mục tương ứng.
@@ -331,6 +367,8 @@ frontend-mastery-hub/
 | Data Structures | `09-data-structures/` | 🟢 Đầy đủ | linear, hash, tree, graph, và modern đã hoàn thành 100% |
 | State Management | `10-state-management/` | 🟢 Đầy đủ | 2 file, so sánh paradigms liên framework & Q&A Senior |
 | Build Tools & Compilers | `11-build-tools-compilers/` | 🟢 Đầy đủ | 4 file, Webpack, Vite, JIT, AOT, SWC, Tree-shaking & Q&A Senior/Architect |
+| TypeScript | `12-typescript/` | 🟢 Đầy đủ | 5 file, Type System Internals, Polymorphic UI, Zod, Type-level challenges & Q&A Senior |
+| Algorithms | `13-algorithms/` | 🟢 Đầy đủ | 5 file, Sorting (TimSort/QuickSort/MergeSort), Filtering (Binary Bounds/Window/Trie/Fuzzy), Data Grid 100k+ & Q&A Senior |
 
 ---
 
@@ -344,6 +382,8 @@ frontend-mastery-hub/
 07-micro-frontends  →  03-react           # Module Federation với React
 10-state-management  ←→  03-react/04-angular/05-vue # Bổ trợ giải pháp quản lý trạng thái cho các framework
 11-build-tools-compilers  ←→  01-javascript/03-react/07-micro-frontends # V8 JIT/Deopt, AOT, Webpack Module Federation
+12-typescript  ←→  01-javascript/03-react/08-design-patterns # Structural typing, Polymorphic components, Typed Design Patterns
+13-algorithms  ←→  01-javascript/03-react/09-data-structures # TimSort V8, Virtual Scrolling, Trie/Heap DS
 ```
 
 ---
@@ -358,6 +398,8 @@ frontend-mastery-hub/
 - **2026-07-10**: Bổ sung tài liệu Web APIs trong `01-javascript/web-apis/` gồm `README.md` (bản đồ Web APIs) và `real-time-communication.md` (WebSocket, EventSource, Polling, thuật toán Exponential Backoff và Jitter cho reconnect).
 - **2026-09-10**: Tạo mới module `11-build-tools-compilers/` gồm `README.md` (Decision Matrix, Build Pipeline), `compilers-jit-aot.md` (AST, V8 Ignition + TurboFan JIT, Inline Cache/Deopt, Angular/Svelte AOT, SWC/esbuild), `bundlers-webpack-vite.md` (Webpack Tapable, Loaders/Plugins, SplitChunks, HMR, Module Federation, Vite, Tree-shaking), và `interviews.md` (25+ Q&A phân cấp & 3 tình huống thiết kế thực tế cho Senior/Architect).
 - **2026-09-16**: Thiết lập tiêu chuẩn Senior Keywords: Tạo file `keywords.md` ở từng thư mục trong repo và thiết lập quy tắc tự động bổ sung keywords cho tất cả tài liệu lý thuyết tương lai.
+- **2026-09-17**: Tạo mới module `12-typescript/` gồm 5 file (`README.md`, `keywords.md`, `type-system-advanced.md`, `framework-applications.md`, `interviews.md`) cover toàn bộ kiến thức TypeScript Core, Type-Level Programming, React Polymorphic Components, State/API Typings và Q&A Senior.
+- **2026-09-17**: Tạo mới module `13-algorithms/` gồm 5 file (`README.md`, `keywords.md`, `sorting-algorithms.md`, `filtering-searching.md`, `interviews.md`) đi sâu vào các thuật toán Sắp xếp (TimSort/QuickSort/MergeSort/Stability), Lọc & Tìm kiếm (Binary Search Bounds/Sliding Window/Trie/Fuzzy Search), và 3 tình huống thiết kế UI System Design (Data Grid 100k+, Autocomplete, Top-K Elements).
 
 ---
 
@@ -373,28 +415,3 @@ Khi tiếp tục làm việc với repo này, agent cần biết:
 6. **Rule Keywords (`keywords.md`)**: Mỗi thư mục/chủ đề phải có file `keywords.md`. Khi tạo/bổ sung bất kỳ nội dung lý thuyết mới nào, BẮT BUỘC phải trích xuất các từ khóa Senior và cập nhật vào `keywords.md` tương ứng.
 7. **Path repo**: `c:\Users\t14\Documents\frontend-mastery-hub\`
 8. **GitHub**: `hoai97nam/frontend-mastery-hub`
--
-
-## 7. LỊCH SỬ PHÁT TRIỂN
-
-- **2026-06-28**: Tạo module `09-data-structures/` — phân loại theo nhóm chức năng (Linear, Hash, Tree, Graph, Modern), template file chuẩn, roadmap 4 tuần. Đã hoàn thành: `01-linear/` (5 DS: Array, Linked List, Stack, Queue, Deque), `02-hash-based/hash-map.md`.
-- **2026-06-28**: Hoàn thành `02-hash-based/` (HashSet, Bloom Filter) và `03-tree/` (Binary Tree, BST, Heap, Trie, Segment Tree).
-- **2026-06-28**: Hoàn thành các cấu trúc còn lại: `04-graph/` (Graph, DAG), `05-modern/` (LRU Cache, Skip List, Persistent DS, Rope, Disjoint-Set, HyperLogLog, Count-Min Sketch) và file phỏng vấn `interviews/qna.md`.
-- **2026-06-28**: Bổ sung chủ đề Component Design Patterns vào module React (`03-react/component-patterns/`): Compound Component, Render Props, Controlled/Uncontrolled, HOC, State Reducer & Control Props, cùng tài liệu phỏng vấn chi tiết.
-- **2026-07-10**: Tạo mới module độc lập `10-state-management/` bổ trợ cho các framework (React, Vue, Angular), bao gồm `README.md` (so sánh 5 paradigms, decision matrix, code examples) và `interviews.md` (Q&A nâng cao, tình huống thiết kế tài chính real-time).
-- **2026-07-10**: Bổ sung tài liệu Web APIs trong `01-javascript/web-apis/` gồm `README.md` (bản đồ Web APIs) và `real-time-communication.md` (WebSocket, EventSource, Polling, thuật toán Exponential Backoff và Jitter cho reconnect).
-- **2026-09-10**: Tạo mới module `11-build-tools-compilers/` gồm `README.md` (Decision Matrix, Build Pipeline), `compilers-jit-aot.md` (AST, V8 Ignition + TurboFan JIT, Inline Cache/Deopt, Angular/Svelte AOT, SWC/esbuild), `bundlers-webpack-vite.md` (Webpack Tapable, Loaders/Plugins, SplitChunks, HMR, Module Federation, Vite, Tree-shaking), và `interviews.md` (25+ Q&A phân cấp & 3 tình huống thiết kế thực tế cho Senior/Architect).
-
----
-
-## 8. GHI CHÚ QUAN TRỌNG CHO CUỘC HỘI THOẠI MỚI
-
-Khi tiếp tục làm việc với repo này, agent cần biết:
-
-1. **Ngôn ngữ chính**: Tiếng Việt cho giải thích, tiếng Anh cho thuật ngữ kỹ thuật
-2. **Level đối tượng**: Middle → Senior frontend developer
-3. **File template DS**: Xem mục 4 — "Cấu trúc nội dung — Mỗi Data Structure file"
-4. **Việc còn thiếu trong 09-data-structures**: Đã hoàn thành toàn bộ 100%.
-5. **Conventions bắt buộc**: Kebab-case tên file, emoji ở heading, Mermaid cho diagrams, bảng Big-O, code JS chạy được có comment, section "🔧 Trong Framework" cho mỗi DS
-6. **Path repo**: `c:\Users\t14\Documents\frontend-mastery-hub\`
-7. **GitHub**: `hoai97nam/frontend-mastery-hub`
